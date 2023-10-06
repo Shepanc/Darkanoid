@@ -9,4 +9,10 @@ class Platform(Classes.Object):
             self.height = height
             self.color=color
     def draw(self):
-        pass
+        pyray.draw_rectangle(
+            self.x,
+            self.y,
+            self.wight,
+            self.height,
+            self.color
+        )
