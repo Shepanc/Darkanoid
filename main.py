@@ -1,25 +1,17 @@
 import pyray
+import Managers
 
-# Глобальные поля
-fps = 0
-items = []
-
-
-def update():
-    pass
-
-def draw():
-    pyray.begin_drawing()
-    pyray.end_drawing()
 
 def main():
-    w, h = 800, 600
-    pyray.init_window(w, h, 'test1')
+    fps = 0
+    appManager = Managers.AppManager()
 
+    appManager.Initialization()
     while not pyray.window_should_close():
         if fps % 60 == 0:
-            update()
-            draw()
+            appManager.Update()
+            appManager.Draw()
+        fps += 1
     pyray.close_window()
 
 if __name__ == '__main__':
