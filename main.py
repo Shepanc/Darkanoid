@@ -8,7 +8,7 @@ def main():
 
     appManager.Initialization()
     while not pyray.window_should_close():
-        if fps % 60 == 0:
+        if fps % 60000 == 0:
             appManager.Update()
             appManager.Draw()
         fps += 1

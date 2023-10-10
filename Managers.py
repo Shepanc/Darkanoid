@@ -7,7 +7,7 @@ class AppManager:
         self.screenWidth = 800
         self.screenHeight = 600
 
-        self.platform = Objects.Platform(100, 100, 50, 20, pyray.BLUE) # Пример тестового класса. Синяя платформа без логики
+        self.platform = Objects.Platform(100, 100, 50, 20, pyray.BLUE, 2) # Пример тестового класса. Синяя платформа без логики
 
     def Initialization(self):
         pyray.init_window(self.screenWidth, self.screenHeight, 'test1')
