@@ -54,10 +54,11 @@ class Platform(Object):
         if pyray.is_key_down(pyray.KeyboardKey.KEY_A):
             self.x -= self.speed
 class Ball(Object):
-    def __init__(self, x, y, radius, color):
+    def __init__(self, x, y, radius, color, speed):
         super().__init__(x, y)
         self.radius = radius
         self.color = color
+        self.speed = speed
 
     def Draw(self):
         pyray.draw_circle(self.x, self.y, self.radius, self.color)

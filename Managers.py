@@ -1,5 +1,5 @@
 import pyray
-import Objects
+import Objects, GameLevels
 class AppManager:
     def __init__(self):
         # Конструктор где все обьекты инициализируются сразу. Если тестим функиональность какого нибудь класса
@@ -7,12 +7,7 @@ class AppManager:
         self.screenWidth = 500
         self.screenHeight = 700
 
-        self.items = []
-        for i in range(5):
-            for e in range(3):
-                self.items.append(Objects.Brick(100 * i + 25, 50 * e, 50, 25, pyray.BLUE))
-        self.items.append(Objects.Platform(100, 500, 80, 20, pyray.WHITE, 3))
-        self.items.append(Objects.Ball(250, 300, 10, pyray.WHITE))
+
 
 
     def Initialization(self):
@@ -24,8 +19,7 @@ class AppManager:
         pyray.clear_background(pyray.BLACK)
         # Здесь вызываем Update вашего обьекта
 
-        for item in self.items:
-            item.Update()
+
 
         pass
 
@@ -33,8 +27,7 @@ class AppManager:
         pyray.begin_drawing()
         # Здесь вызываем Draw вашего обьекта.
 
-        for item in self.items:
-            item.Draw()
+
 
         pyray.end_drawing()
         pass
