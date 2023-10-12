@@ -12,6 +12,7 @@ class AppManager:
             for e in range(3):
                 self.items.append(Objects.Brick(100 * i + 25, 50 * e, 50, 25, pyray.BLUE))
         self.items.append(Objects.Platform(100, 500, 80, 20, pyray.WHITE, 3))
+        self.items.append(Objects.Ball(250, 300, 10, pyray.WHITE))
 
 
     def Initialization(self):
