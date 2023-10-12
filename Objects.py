@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 import pyray
+import Managers
 
 class Object(ABC):
     def __init__(self, x, y):
@@ -50,9 +51,11 @@ class Platform(Object):
 
     def Update(self):
         if pyray.is_key_down(pyray.KeyboardKey.KEY_D):
-            self.x += self.speed
+            if self.x<Managers.AppManager.screenWidth-self.width :
+                self.x += self.speed
         if pyray.is_key_down(pyray.KeyboardKey.KEY_A):
-            self.x -= self.speed
+            if self.x>0:
+                self.x -= self.speed
 class Ball(Object):
     def __init__(self, x, y, radius, color, speed):
         super().__init__(x, y)
@@ -65,3 +68,7 @@ class Ball(Object):
 
     def Update(self):
         pass
+    def move(self):
+        self.x+=self.speed
+        self.y += self.speed
+

@@ -23,7 +23,7 @@ class Level1(GameLevel):
         super().__init__()
         for i in range(5):
             for e in range(3):
-                self.items.append(Objects.Brick(80 * i, 50 * e, 60, 15, color=pyray.BLUE))
+                self.items.append(Objects.Brick(100 * i+18, 60 * e+20, 60, 15, color=pyray.BLUE))
         pass
 
 

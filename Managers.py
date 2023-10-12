@@ -1,17 +1,17 @@
 import pyray
 import Objects, GameLevels
 class AppManager:
+    screenWidth = 500
+    screenHeight = 700
     def __init__(self):
         # Конструктор где все обьекты инициализируются сразу. Если тестим функиональность какого нибудь класса
         # то создаем его здесь как поле класса и далле вызываем его методы в соответствующих функциях
-        self.screenWidth = 500
-        self.screenHeight = 700
 
         self.level = GameLevels.Level1()
 
 
     def Initialization(self):
-        pyray.init_window(self.screenWidth, self.screenHeight, 'test1')
+        pyray.init_window(AppManager.screenWidth, AppManager.screenHeight, 'test1')
         # Здесь ничего можно не писать. Теоретически может потом понадобится. Но лучше пока об этом не думать.
         pass
 
