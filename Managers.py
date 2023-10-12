@@ -7,7 +7,7 @@ class AppManager:
         self.screenWidth = 500
         self.screenHeight = 700
 
-
+        self.level = GameLevels.Level1()
 
 
     def Initialization(self):
@@ -19,7 +19,7 @@ class AppManager:
         pyray.clear_background(pyray.BLACK)
         # Здесь вызываем Update вашего обьекта
 
-
+        self.level.Update()
 
         pass
 
@@ -27,7 +27,7 @@ class AppManager:
         pyray.begin_drawing()
         # Здесь вызываем Draw вашего обьекта.
 
-
+        self.level.Draw()
 
         pyray.end_drawing()
         pass
