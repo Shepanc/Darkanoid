@@ -32,3 +32,8 @@ class AppManager:
         pyray.end_drawing()
         pass
 
+
+    def CheckCollision(self):
+        pass
+
+

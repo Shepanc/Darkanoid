@@ -67,8 +67,9 @@ class Ball(Object):
         pyray.draw_circle(self.x, self.y, self.radius, self.color)
 
     def Update(self):
+        self.move()
         pass
     def move(self):
-        self.x+=self.speed
+        self.x += self.speed
         self.y += self.speed
 

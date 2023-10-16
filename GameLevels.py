@@ -18,6 +18,10 @@ class GameLevel:
             item.Update()
         pass
 
+    @property
+    def getItems(self):
+        return self.items
+
 class Level1(GameLevel):
     def __init__(self):
         super().__init__()
