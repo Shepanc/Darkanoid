@@ -1,5 +1,5 @@
 import pyray
-import Objects, GameLevels
+import GameLevels
 class AppManager:
     screenWidth = 500
     screenHeight = 700
@@ -19,7 +19,7 @@ class AppManager:
         pyray.clear_background(pyray.BLACK)
         # Здесь вызываем Update вашего обьекта
 
-        self.level.Update()
+        self.level.update()
 
         pass
 
@@ -27,7 +27,7 @@ class AppManager:
         pyray.begin_drawing()
         # Здесь вызываем Draw вашего обьекта.
 
-        self.level.Draw()
+        self.level.draw()
 
         pyray.end_drawing()
         pass

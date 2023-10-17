@@ -8,18 +8,18 @@ class GameLevel:
         self.items.append(Objects.Ball(250, 300, 10, pyray.WHITE, 4))
         pass
 
-    def Draw(self):
+    def draw(self):
         for item in self.items:
-            item.Draw()
+            item.draw()
         pass
 
-    def Update(self):
+    def update(self):
         for item in self.items:
-            item.Update()
+            item.update()
         pass
 
     @property
-    def getItems(self):
+    def Items(self):
         return self.items
 
 class Level1(GameLevel):
