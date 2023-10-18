@@ -1,5 +1,7 @@
 import pyray
-import Objects, GameLevels
+import GameLevels
+
+
 class AppManager:
     screenWidth = 500
     screenHeight = 700
@@ -13,13 +15,14 @@ class AppManager:
     def Initialization(self):
         pyray.init_window(AppManager.screenWidth, AppManager.screenHeight, 'test1')
         # Здесь ничего можно не писать. Теоретически может потом понадобится. Но лучше пока об этом не думать.
+
         pass
 
     def Update(self):
         pyray.clear_background(pyray.BLACK)
         # Здесь вызываем Update вашего обьекта
-
-        self.level.Update()
+        self.CheckCollision()
+        self.level.update()
 
         pass
 
@@ -27,8 +30,22 @@ class AppManager:
         pyray.begin_drawing()
         # Здесь вызываем Draw вашего обьекта.
 
-        self.level.Draw()
+        self.level.draw()
 
         pyray.end_drawing()
         pass
+
+    def CheckCollision(self):
+        ball = self.level.ball
+        platform = self.level.platform
+
+        for brick in self.level.bricks:
+            if pyray.check_collision_circle_rec(pyray.Vector2(ball.x, ball.y), ball.radius,
+                                                pyray.Rectangle(brick.x, brick.y, brick.width, brick.height)):
+                ball.onCollision()
+                brick.onCollision()
+        if pyray.check_collision_circle_rec(pyray.Vector2(ball.x, ball.y), ball.radius,
+                                            pyray.Rectangle(platform.x, platform.y, platform.width, platform.height)):
+            ball.onCollision()
+            platform.onCollision()
 

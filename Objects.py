@@ -1,18 +1,24 @@
 from abc import ABC, abstractmethod
 import pyray
 import Managers
+import numpy
 
 class Object(ABC):
     def __init__(self, x, y):
         self.x = x
         self.y = y
+        self.isAlive = True
 
     @abstractmethod
-    def Draw(self):
+    def draw(self):
         pass
 
     @abstractmethod
-    def Update(self):
+    def update(self):
+        pass
+
+    @abstractmethod
+    def onCollision(self):
         pass
 class Brick(Object):
     def __init__(self, x, y, width, height, color):
@@ -21,7 +27,7 @@ class Brick(Object):
         self.height = height
         self.color = color
 
-    def Draw(self):
+    def draw(self):
         pyray.draw_rectangle(
             self.x,
             self.y,
@@ -30,7 +36,11 @@ class Brick(Object):
             self.color
         )
 
-    def Update(self):
+    def update(self):
+        pass
+
+    def onCollision(self):
+        self.isAlive = False
         pass
 class Platform(Object):
     def __init__(self, x, y, width, height, color, speed):
@@ -40,7 +50,7 @@ class Platform(Object):
         self.color = color
         self.speed = speed
 
-    def Draw(self):
+    def draw(self):
         pyray.draw_rectangle(
             self.x,
             self.y,
@@ -49,13 +59,16 @@ class Platform(Object):
             self.color
         )
 
-    def Update(self):
+    def update(self):
         if pyray.is_key_down(pyray.KeyboardKey.KEY_D):
-            if self.x<Managers.AppManager.screenWidth-self.width :
+            if self.x < Managers.AppManager.screenWidth - self.width:
                 self.x += self.speed
         if pyray.is_key_down(pyray.KeyboardKey.KEY_A):
-            if self.x>0:
+            if self.x > 0:
                 self.x -= self.speed
+
+    def onCollision(self):
+        pass
 class Ball(Object):
     def __init__(self, x, y, radius, color, speed):
         super().__init__(x, y)
@@ -63,12 +76,23 @@ class Ball(Object):
         self.color = color
         self.speed = speed
 
-    def Draw(self):
+    def draw(self):
         pyray.draw_circle(self.x, self.y, self.radius, self.color)
 
-    def Update(self):
+    def update(self):
+        self.move()
         pass
+
     def move(self):
-        self.x+=self.speed
+        if self.x <= self.radius or self.x >= Managers.AppManager.screenWidth - self.radius:
+            self.speed *= -1
+        if self.y <= self.radius or self.y >= Managers.AppManager.screenHeight - self.radius:
+            self.speed *= -1
+        #self.x += self.speed
         self.y += self.speed
+        pass
+
+    def onCollision(self):
+        self.speed *= -1
+        pass
 

@@ -3,20 +3,35 @@ import Objects
 
 class GameLevel:
     def __init__(self):
-        self.items = []
+        self.items = list()
         self.items.append(Objects.Platform(100, 500, 80, 20, pyray.WHITE, 3))
         self.items.append(Objects.Ball(250, 300, 10, pyray.WHITE, 4))
         pass
 
-    def Draw(self):
+    def draw(self):
         for item in self.items:
-            item.Draw()
+            item.draw()
         pass
 
-    def Update(self):
+    def update(self):
         for item in self.items:
-            item.Update()
+            item.update()
+            if not item.isAlive:
+                self.items.remove(item)
         pass
+
+    @property
+    def bricks(self):
+        return [item for item in self.items if type(item) is Objects.Brick]
+
+    @property
+    def ball(self):
+        return [item for item in self.items if type(item) is Objects.Ball][0]
+
+    @property
+    def platform(self):
+        return [item for item in self.items if type(item) is Objects.Platform][0]
+
 
 class Level1(GameLevel):
     def __init__(self):
