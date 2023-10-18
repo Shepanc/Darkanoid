@@ -7,6 +7,7 @@ class Object(ABC):
     def __init__(self, x, y):
         self.x = x
         self.y = y
+        self.isAlive = True
 
     @abstractmethod
     def draw(self):
@@ -39,6 +40,7 @@ class Brick(Object):
         pass
 
     def onCollision(self):
+        self.isAlive = False
         pass
 class Platform(Object):
     def __init__(self, x, y, width, height, color, speed):
@@ -59,7 +61,7 @@ class Platform(Object):
 
     def update(self):
         if pyray.is_key_down(pyray.KeyboardKey.KEY_D):
-            if self.x < Managers.AppManager.screenWidth-self.width :
+            if self.x < Managers.AppManager.screenWidth - self.width:
                 self.x += self.speed
         if pyray.is_key_down(pyray.KeyboardKey.KEY_A):
             if self.x > 0:
@@ -78,12 +80,19 @@ class Ball(Object):
         pyray.draw_circle(self.x, self.y, self.radius, self.color)
 
     def update(self):
-
+        self.move()
         pass
 
     def move(self):
+        if self.x <= self.radius or self.x >= Managers.AppManager.screenWidth - self.radius:
+            self.speed *= -1
+        if self.y <= self.radius or self.y >= Managers.AppManager.screenHeight - self.radius:
+            self.speed *= -1
+        #self.x += self.speed
+        self.y += self.speed
         pass
 
     def onCollision(self):
+        self.speed *= -1
         pass
 
