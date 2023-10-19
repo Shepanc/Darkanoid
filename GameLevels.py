@@ -16,9 +16,10 @@ class GameLevel:
     def update(self):
         for item in self.items:
             item.update()
-            if not item.isAlive:
-                self.items.remove(item)
         pass
+
+    def remove(self, item):
+        self.items.remove(item)
 
     @property
     def bricks(self):
