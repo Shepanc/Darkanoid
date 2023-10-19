@@ -1,13 +1,13 @@
+import random
 from abc import ABC, abstractmethod
 import pyray
 import Managers
-import numpy
+import vec
 
 class Object(ABC):
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.isAlive = True
 
     @abstractmethod
     def draw(self):
@@ -40,7 +40,6 @@ class Brick(Object):
         pass
 
     def onCollision(self):
-        self.isAlive = False
         pass
 class Platform(Object):
     def __init__(self, x, y, width, height, color, speed):
@@ -74,7 +73,8 @@ class Ball(Object):
         super().__init__(x, y)
         self.radius = radius
         self.color = color
-        self.speed = speed
+        self.vSpeed = vec.Vector2(speed, speed)
+        self.vDirection = vec.Vector2(0.5, 1)
 
     def draw(self):
         pyray.draw_circle(self.x, self.y, self.radius, self.color)
@@ -85,14 +85,15 @@ class Ball(Object):
 
     def move(self):
         if self.x <= self.radius or self.x >= Managers.AppManager.screenWidth - self.radius:
-            self.speed *= -1
+            self.vSpeed = vec.Vector2(self.vSpeed.x * -1, self.vSpeed.y)
         if self.y <= self.radius or self.y >= Managers.AppManager.screenHeight - self.radius:
-            self.speed *= -1
-        #self.x += self.speed
-        self.y += self.speed
+            self.vSpeed = vec.Vector2(self.vSpeed.x, self.vSpeed.y * -1)
+        self.x += int(self.vSpeed.x * self.vDirection.x)
+        self.y += int(self.vSpeed.y * self.vDirection.y)
         pass
 
     def onCollision(self):
-        self.speed *= -1
+        rnd = random.random()
+        self.vDirection = vec.Vector2(self.vDirection.x * rnd, self.vDirection.y * -1)
         pass
 
