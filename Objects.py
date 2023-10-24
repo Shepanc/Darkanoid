@@ -42,13 +42,13 @@ class Brick(Object):
     def onCollision(self):
         pass
 class Platform(Object):
-    def __init__(self, x, y, width, height, color, speed,t=100):
+    def __init__(self, x, y, width, height, color, speed):
         super().__init__(x, y)
         self.width = width
         self.height = height
         self.color = color
         self.speed = speed
-        self.t=t
+        self.t=100
 
     def draw(self):
         pyray.draw_rectangle(
@@ -65,7 +65,6 @@ class Platform(Object):
                 self.x += self.speed
             if(self.t<=100):
                 self.t+=1
-                print(self.t)
             if pyray.is_key_down(pyray.KeyboardKey.KEY_LEFT_SHIFT):
                 if self.x <Managers.AppManager.screenWidth - self.width-20:
                     if(self.t>0):
@@ -76,7 +75,6 @@ class Platform(Object):
                 self.x -= self.speed
             if(self.t<=100):
                 self.t+=1
-                print(self.t)
             if pyray.is_key_down(pyray.KeyboardKey.KEY_LEFT_SHIFT):
                 if self.x > 20:
                     if (self.t > 0):

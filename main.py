@@ -1,4 +1,4 @@
-import pyrayii
+import pyray
 import Managers
 
 
