@@ -12,7 +12,10 @@ class AppManager:
         # то создаем его здесь как поле класса и далле вызываем его методы в соответствующих функциях
 
         self.level = GameLevels.Level1()
-        self.menu = GUIs.Menu()
+        self.UI = GUIs.UI()
+
+        self.score = 0
+        self.lives = 3
 
     def Initialization(self):
         pyray.init_window(AppManager.screenWidth, AppManager.screenHeight, 'test1')
@@ -27,7 +30,10 @@ class AppManager:
 
         self.CheckCollision()
         self.level.update()
-        self.menu.update()
+
+        self.UI.score = self.score
+        self.UI.lives = self.lives
+        self.UI.update()
 
         pass
 
@@ -36,7 +42,7 @@ class AppManager:
         # Здесь вызываем Draw вашего обьекта.
 
         self.level.draw()
-        self.menu.draw()
+        self.UI.draw()
 
         pyray.end_drawing()
         pass
@@ -50,6 +56,9 @@ class AppManager:
                                                 pyray.Rectangle(brick.x, brick.y, brick.width, brick.height)):
                 ball.onCollision()
                 brick.onCollision()
+
+                self.score += 1
+
                 self.level.remove(brick)
         if pyray.check_collision_circle_rec(pyray.Vector2(ball.x, ball.y), ball.radius,
                                             pyray.Rectangle(platform.x, platform.y, platform.width, platform.height)):

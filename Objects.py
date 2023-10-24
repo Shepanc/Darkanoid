@@ -114,13 +114,14 @@ class Ball(Object):
             self.vDirection = vec.Vector2(rnd, r*-1)
         pass
 class Label(Object):
-    def __init__(self, x, y, text, fontsize = 20, spacing = 1, color = pyray.WHITE, font = None):
+    def __init__(self, x, y, text, fontsize = 20, spacing = 1, color = pyray.WHITE, font = None, name = None):
         super().__init__(x, y)
         self.fontsize = fontsize
         self.text = text
         self.font = font
         self.spacing = spacing
         self.color = color
+        self.name = name
 
     def draw(self):
         if self.font is not None:
