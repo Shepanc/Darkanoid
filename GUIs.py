@@ -12,3 +12,13 @@ class GUI:
         for item in self.items:
             item.update()
         pass
+
+class Menu(GUI):
+    def CreateMenu(self):
+        self.items.append()
+
+    def __init__(self):
+        super().__init__()
+        self.CreateMenu()
+
+
