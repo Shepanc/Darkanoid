@@ -4,20 +4,9 @@ import Objects
 
 class GameLevel:
     def __init__(self):
-        self.items = list()
+        super().__init__()
         self.items.append(Objects.Platform(100, 500, 80, 20, pyray.WHITE, 5))
         self.items.append(Objects.Ball(250, 300, 10, pyray.WHITE, 4))
-        pass
-
-    def draw(self):
-        for item in self.items:
-            item.draw()
-        pass
-
-    def update(self):
-        for item in self.items:
-            item.update()
-        pass
 
     def remove(self, item):
         self.items.remove(item)
