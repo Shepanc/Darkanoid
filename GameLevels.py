@@ -1,6 +1,7 @@
 import pyray
 import Objects
 
+
 class GameLevel:
     def __init__(self):
         self.items = list()
