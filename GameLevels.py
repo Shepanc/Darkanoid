@@ -1,8 +1,9 @@
 import pyray
 import Objects
+import GUIs
 
 
-class GameLevel:
+class GameLevel(GUIs.GUI):
     def __init__(self):
         super().__init__()
         self.items.append(Objects.Platform(100, 500, 80, 20, pyray.WHITE, 5))
@@ -29,7 +30,7 @@ class Level1(GameLevel):
         super().__init__()
         for i in range(5):
             for e in range(3):
-                self.items.append(Objects.Brick(100 * i+18, 60 * e+20, 60, 15, color=pyray.BLUE))
+                self.items.append(Objects.Brick(100 * i+18, 60 * e + 100, 60, 15, color=pyray.BLUE))
         pass
 
 

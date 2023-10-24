@@ -1,4 +1,6 @@
 import pyray
+
+import GUIs
 import GameLevels
 import random
 
@@ -10,19 +12,22 @@ class AppManager:
         # то создаем его здесь как поле класса и далле вызываем его методы в соответствующих функциях
 
         self.level = GameLevels.Level1()
-
+        self.menu = GUIs.Menu()
 
     def Initialization(self):
         pyray.init_window(AppManager.screenWidth, AppManager.screenHeight, 'test1')
-        # Здесь ничего можно не писать. Теоретически может потом понадобится. Но лучше пока об этом не думать.
+        # Ходят слухи, что здесь грузят текстуры. Должен вызывать методы обьетков Initialization.
+        # Сам метод вызывается при создании программы.
 
         pass
 
     def Update(self):
         pyray.clear_background(pyray.BLACK)
         # Здесь вызываем Update вашего обьекта
+
         self.CheckCollision()
         self.level.update()
+        self.menu.update()
 
         pass
 
@@ -31,6 +36,7 @@ class AppManager:
         # Здесь вызываем Draw вашего обьекта.
 
         self.level.draw()
+        self.menu.draw()
 
         pyray.end_drawing()
         pass
@@ -47,7 +53,6 @@ class AppManager:
                 self.level.remove(brick)
         if pyray.check_collision_circle_rec(pyray.Vector2(ball.x, ball.y), ball.radius,
                                             pyray.Rectangle(platform.x, platform.y, platform.width, platform.height)):
-
             ball.onCollision()
             platform.onCollision()
 

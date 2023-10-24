@@ -1,5 +1,9 @@
 import pyray
 
+import Managers
+import Objects
+
+
 class GUI:
     def __init__(self):
         self.items = list()
@@ -14,11 +18,16 @@ class GUI:
         pass
 
 class Menu(GUI):
-    def CreateMenu(self):
-        self.items.append()
-
     def __init__(self):
         super().__init__()
         self.CreateMenu()
 
+    def CreateMenu(self):
+        screenWidth = Managers.AppManager.screenWidth
+        screenHeight = Managers.AppManager.screenHeight
+        self.items.append(Objects.Label(screenWidth // 20, screenHeight // 30,
+                                        "Score: ", (screenWidth + screenHeight) // 30))
 
+        self.items.append(Objects.Label(screenWidth // 20,
+                                        screenHeight - screenHeight // 15,
+                                        "Lives Remaining: ", (screenWidth + screenHeight) // 30))
