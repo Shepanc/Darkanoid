@@ -4,7 +4,7 @@ import Objects
 class GameLevel:
     def __init__(self):
         self.items = list()
-        self.items.append(Objects.Platform(100, 500, 80, 20, pyray.WHITE, 3))
+        self.items.append(Objects.Platform(100, 500, 80, 20, pyray.WHITE, 5))
         self.items.append(Objects.Ball(250, 300, 10, pyray.WHITE, 4))
         pass
 

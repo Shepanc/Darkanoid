@@ -1,6 +1,6 @@
 import pyray
 import GameLevels
-
+import random
 
 class AppManager:
     screenWidth = 500
@@ -47,6 +47,8 @@ class AppManager:
                 self.level.remove(brick)
         if pyray.check_collision_circle_rec(pyray.Vector2(ball.x, ball.y), ball.radius,
                                             pyray.Rectangle(platform.x, platform.y, platform.width, platform.height)):
+
             ball.onCollision()
             platform.onCollision()
+
 

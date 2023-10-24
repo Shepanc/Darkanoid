@@ -48,6 +48,7 @@ class Platform(Object):
         self.height = height
         self.color = color
         self.speed = speed
+        self.t=100
 
     def draw(self):
         pyray.draw_rectangle(
@@ -62,9 +63,23 @@ class Platform(Object):
         if pyray.is_key_down(pyray.KeyboardKey.KEY_D):
             if self.x < Managers.AppManager.screenWidth - self.width:
                 self.x += self.speed
+            if(self.t<=100):
+                self.t+=1
+            if pyray.is_key_down(pyray.KeyboardKey.KEY_LEFT_SHIFT):
+                if self.x <Managers.AppManager.screenWidth - self.width-20:
+                    if(self.t>0):
+                        self.x +=15
+                        self.t-=20
         if pyray.is_key_down(pyray.KeyboardKey.KEY_A):
             if self.x > 0:
                 self.x -= self.speed
+            if(self.t<=100):
+                self.t+=1
+            if pyray.is_key_down(pyray.KeyboardKey.KEY_LEFT_SHIFT):
+                if self.x > 20:
+                    if (self.t > 0):
+                        self.x -=15
+                        self.t-=20
 
     def onCollision(self):
         pass
@@ -88,12 +103,17 @@ class Ball(Object):
             self.vSpeed = vec.Vector2(self.vSpeed.x * -1, self.vSpeed.y)
         if self.y <= self.radius or self.y >= Managers.AppManager.screenHeight - self.radius:
             self.vSpeed = vec.Vector2(self.vSpeed.x, self.vSpeed.y * -1)
+
         self.x += int(self.vSpeed.x * self.vDirection.x)
         self.y += int(self.vSpeed.y * self.vDirection.y)
         pass
 
     def onCollision(self):
-        rnd = random.random()
-        self.vDirection = vec.Vector2(self.vDirection.x * rnd, self.vDirection.y * -1)
+        rnd = (random.random()+0.6)*1.6
+        r = (random.random()+0.4) * 1.6
+        if(self.vDirection.y<0):
+            self.vDirection = vec.Vector2(rnd, r)
+        else:
+            self.vDirection = vec.Vector2(rnd, r*-1)
         pass
 
