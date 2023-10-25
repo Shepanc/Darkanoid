@@ -6,7 +6,7 @@ import Objects
 
 class GUI:
     def __init__(self):
-        self.items = list()
+        self.items = list() # Все обьекты интерфейса
     def draw(self):
         for item in self.items:
             item.draw()
@@ -16,6 +16,36 @@ class GUI:
         for item in self.items:
             item.update()
         pass
+
+    # Нужен для переключения выбора в менюшках и тд.
+    def controlUpd(self):
+        if pyray.is_key_pressed(pyray.KeyboardKey.KEY_ENTER):
+            self.selectedBtn.onPressEvent()
+
+        if pyray.is_key_pressed(pyray.KeyboardKey.KEY_DOWN):
+            for i in range(len(self.items)):
+                if self.selectedBtn == self.items[i]:
+                    if i == 0:
+                        self.selectedBtn = self.items[len(self.items)-1]
+                        break
+                    else:
+                        self.selectedBtn = self.items[i - 1]
+                        break
+        if pyray.is_key_pressed(pyray.KeyboardKey.KEY_UP):
+            for i in range(len(self.items)):
+                if self.selectedBtn == self.items[i]:
+                    if i == len(self.items) - 1:
+                        self.selectedBtn = self.items[0]
+                        break
+                    else:
+                        self.selectedBtn = self.items[i + 1]
+                        break
+
+        for item in self.items:
+            if self.selectedBtn.label.text == item.label.text:
+                item.label.color = pyray.RED
+            else:
+                item.label.color = pyray.WHITE
 
 class GameGUI(GUI):
     def __init__(self):
@@ -45,7 +75,6 @@ class GameGUI(GUI):
                 item.text = str(self.score)
             if item.name == "Lives":
                 item.text = str(self.lives)
-
 class MenuGUI(GUI):
     def __init__(self):
         super().__init__()
@@ -67,7 +96,7 @@ class MenuGUI(GUI):
         exitBtn = Objects.Button(x=screenWidth // 2 - 25,
                                  y=screenHeight // 16 * 9,
                                  color=pyray.BLACK,
-                                 onPressEvent=None,
+                                 onPressEvent=lambda: pyray.close_window(),
                                  label=Objects.Label(text="Exit",
                                                      fontsize=30))
         self.items.append(exitBtn)
@@ -75,35 +104,65 @@ class MenuGUI(GUI):
         infoBtn = Objects.Button(x=screenWidth // 2 - 25,
                                  y=screenHeight // 12*6,
                                  color=pyray.BLACK,
-                                 onPressEvent=None,
+                                 onPressEvent=Managers.changeStateWIP,
                                  label=Objects.Label(text="Info",
                                                      fontsize=30))
         self.items.append(infoBtn)
     def update(self):
-        if pyray.is_key_pressed(pyray.KeyboardKey.KEY_ENTER):
-            self.selectedBtn.onPressEvent()
+        super().update()
+        self.controlUpd()
 
-        if pyray.is_key_pressed(pyray.KeyboardKey.KEY_DOWN):
-            for i in range(len(self.items)):
-                if self.selectedBtn == self.items[i]:
-                    if i == 0:
-                        self.selectedBtn = self.items[len(self.items)-1]
-                        break
-                    else:
-                        self.selectedBtn = self.items[i - 1]
-                        break
-        if pyray.is_key_pressed(pyray.KeyboardKey.KEY_UP):
-            for i in range(len(self.items)):
-                if self.selectedBtn == self.items[i]:
-                    if i == len(self.items) - 1:
-                        self.selectedBtn = self.items[0]
-                        break
-                    else:
-                        self.selectedBtn = self.items[i + 1]
-                        break
+class DeathGUI(GUI):
+    def __init__(self):
+        super().__init__()
+        self.CreateUI()
+    def CreateUI(self):
+        screenWidth = Managers.AppManager.screenWidth
+        screenHeight = Managers.AppManager.screenHeight
 
-        for item in self.items:
-            if self.selectedBtn.label.text == item.label.text:
-                item.label.color = pyray.RED
-            else:
-                item.label.color = pyray.WHITE
+        retryBtn = Objects.Button(x=screenWidth // 2 - screenWidth // 13,
+                                  y=screenHeight // 3 + screenHeight // 9,
+                                  color=pyray.BLACK,
+                                  onPressEvent=Managers.restart,
+                                  label=Objects.Label(text="Retry",
+                                                      fontsize=30))
+        self.items.append(retryBtn)
+        self.selectedBtn = retryBtn
+
+        exitBtn = Objects.Button(x=screenWidth // 2 - 25,
+                                 y=screenHeight // 12*6,
+                                 color=pyray.BLACK,
+                                 onPressEvent=lambda: pyray.close_window(),
+                                 label=Objects.Label(text="Exit",
+                                                     fontsize=30))
+        self.items.append(exitBtn)
+    def update(self):
+        super().update()
+        self.controlUpd()
+
+class WIPGUI(GUI):
+    def __init__(self):
+        super().__init__()
+        self.CreateUI()
+    def CreateUI(self):
+        screenWidth = Managers.AppManager.screenWidth
+        screenHeight = Managers.AppManager.screenHeight
+
+        retryBtn = Objects.Button(x=screenWidth // 2 - screenWidth // 4,
+                                  y=screenHeight // 3 + screenHeight // 9,
+                                  color=pyray.BLACK,
+                                  onPressEvent=None,
+                                  label=Objects.Label(text="Work in progress",
+                                                      fontsize=30))
+        self.items.append(retryBtn)
+        self.selectedBtn = retryBtn
+
+        exitBtn = Objects.Button(x=screenWidth // 2 - 25,
+                                 y=screenHeight // 12*6,
+                                 color=pyray.BLACK,
+                                 onPressEvent=Managers.restart,
+                                 label=Objects.Label(text="Back",
+                                                     fontsize=30))
+        self.items.append(exitBtn)
+    def update(self):
+        self.controlUpd()
