@@ -8,6 +8,8 @@ class GameLevel(GUIs.GUI):
         super().__init__()
         self.items.append(Objects.Platform(250, 500, 80, 20, pyray.WHITE, 5))
         self.items.append(Objects.Ball(250, 300, 10, pyray.WHITE, 4))
+        self.items.append(Objects.Rectangle(0, 80, 500, 1, pyray.WHITE))
+        self.items.append(Objects.Rectangle(0, 620, 500, 1, pyray.WHITE))
 
     def remove(self, item):
         self.items.remove(item)
@@ -23,6 +25,11 @@ class GameLevel(GUIs.GUI):
     @property
     def platform(self):
         return [item for item in self.items if type(item) is Objects.Platform][0]
+
+    @property
+    def borders(self):
+        return [item for item in self.items if type(item) is Objects.Rectangle]
+
 
 
 class Level1(GameLevel):
