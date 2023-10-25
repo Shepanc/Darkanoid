@@ -65,6 +65,14 @@ class AppManager:
                 self.score += 1
 
                 self.level.remove(brick)
+        for border in self.level.borders:
+            if pyray.check_collision_circle_rec(pyray.Vector2(ball.x, ball.y), ball.radius,
+                                                pyray.Rectangle(border.x, border.y, border.width, border.height)):
+                if border.y == 80:
+                    ball.onCollision()
+                else:
+                    self.lives -= 1
+                border.onCollision()
         if pyray.check_collision_circle_rec(pyray.Vector2(ball.x, ball.y), ball.radius,
                                             pyray.Rectangle(platform.x, platform.y, platform.width, platform.height)):
             ball.onCollision()

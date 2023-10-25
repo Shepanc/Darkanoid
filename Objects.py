@@ -31,13 +31,14 @@ class Rectangle(Object):
             self.height,
             self.color
         )
+    def onCollision(self):
+        pass
 
 class Brick(Rectangle):
     def __init__(self, x, y, width, height, color):
         super().__init__(x, y, width, height, color)
     def onCollision(self):
         pass
-
 class Platform(Rectangle):
     def __init__(self, x, y, width, height, color, speed):
         super().__init__(x, y, width, height, color)
@@ -85,8 +86,6 @@ class Ball(Object):
     def move(self):
         if self.x <= self.radius or self.x >= Managers.AppManager.screenWidth - self.radius:
             self.vSpeed = vec.Vector2(self.vSpeed.x * -1, self.vSpeed.y)
-        if self.y <= self.radius or self.y >= Managers.AppManager.screenHeight - self.radius:
-            self.vSpeed = vec.Vector2(self.vSpeed.x, self.vSpeed.y * -1)
 
         self.x += int(self.vSpeed.x * self.vDirection.x)
         self.y += int(self.vSpeed.y * self.vDirection.y)
@@ -95,7 +94,7 @@ class Ball(Object):
     def onCollision(self):
         rnd = (random.random()+0.6)*1.6
         r = (random.random()+0.4) * 1.6
-        if(self.vDirection.y<0):
+        if self.vDirection.y < 0:
             self.vDirection = vec.Vector2(rnd, r)
         else:
             self.vDirection = vec.Vector2(rnd, r*-1)
@@ -119,7 +118,6 @@ class Label(Object):
 
     def update(self):
         pass
-
 class Button(Rectangle):
     def __init__(self, x, y, color, label, onPressEvent, width = 0, height = 0):
         super().__init__(x, y, width, height, color)
