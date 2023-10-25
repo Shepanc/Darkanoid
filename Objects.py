@@ -73,8 +73,10 @@ class Ball(Object):
         super().__init__(x, y)
         self.radius = radius
         self.color = color
+        self.speed = speed
         self.vSpeed = vec.Vector2(speed, speed)
         self.vDirection = vec.Vector2(0.01, 1)
+        self.firstPunch = False
 
     def draw(self):
         pyray.draw_circle(self.x, self.y, self.radius, self.color)
@@ -98,7 +100,10 @@ class Ball(Object):
             self.vDirection = vec.Vector2(rnd, r)
         else:
             self.vDirection = vec.Vector2(rnd, r*-1)
-        pass
+
+        if not self.firstPunch:
+            self.vSpeed = vec.Vector2(3, 3)
+            self.firstPunch = True
 class Label(Object):
     def __init__(self, x = 0, y = 0, text = "", fontsize = 20, spacing = 1, color = pyray.WHITE, font = None, name = None):
         super().__init__(x, y)
