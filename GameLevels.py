@@ -6,7 +6,7 @@ import GUIs
 class GameLevel(GUIs.GUI):
     def __init__(self):
         super().__init__()
-        self.items.append(Objects.Platform(100, 500, 80, 20, pyray.WHITE, 5))
+        self.items.append(Objects.Platform(250, 500, 80, 20, pyray.WHITE, 5))
         self.items.append(Objects.Ball(250, 300, 10, pyray.WHITE, 4))
 
     def remove(self, item):

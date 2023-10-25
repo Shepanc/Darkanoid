@@ -1,18 +1,19 @@
 import pyray
-
 import GUIs
 import GameLevels
-import random
 
 class AppManager:
     screenWidth = 500
     screenHeight = 700
+    gameState = "Menu"
+
     def __init__(self):
         # Конструктор где все обьекты инициализируются сразу. Если тестим функиональность какого нибудь класса
         # то создаем его здесь как поле класса и далле вызываем его методы в соответствующих функциях
 
         self.level = GameLevels.Level1()
-        self.UI = GUIs.UI()
+        self.gameGUI = GUIs.GameGUI()
+        self.menuGUI = GUIs.MenuGUI()
 
         self.score = 0
         self.lives = 3
@@ -28,21 +29,25 @@ class AppManager:
         pyray.clear_background(pyray.BLACK)
         # Здесь вызываем Update вашего обьекта
 
-        self.CheckCollision()
-        self.level.update()
+        if AppManager.gameState is "Game":
+            self.CheckCollision()
+            self.level.update()
 
-        self.UI.score = self.score
-        self.UI.lives = self.lives
-        self.UI.update()
-
-        pass
+            self.gameGUI.score = self.score
+            self.gameGUI.lives = self.lives
+            self.gameGUI.update()
+        elif AppManager.gameState is "Menu":
+            self.menuGUI.update()
 
     def Draw(self):
         pyray.begin_drawing()
         # Здесь вызываем Draw вашего обьекта.
 
-        self.level.draw()
-        self.UI.draw()
+        if AppManager.gameState is "Game":
+            self.level.draw()
+            self.gameGUI.draw()
+        elif AppManager.gameState is "Menu":
+            self.menuGUI.draw()
 
         pyray.end_drawing()
         pass
@@ -65,4 +70,6 @@ class AppManager:
             ball.onCollision()
             platform.onCollision()
 
+def changeStateGame():
+    AppManager.gameState = "Game"
 

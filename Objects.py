@@ -1,25 +1,24 @@
 import random
-from abc import ABC, abstractmethod
 import pyray
 import Managers
 import vec
 
-class Object(ABC):
+class Object():
     def __init__(self, x, y):
         self.x = x
         self.y = y
 
-    @abstractmethod
     def draw(self):
         pass
 
-    @abstractmethod
     def update(self):
         pass
 
-class Brick(Object):
-    def __init__(self, x, y, width, height, color):
-        super().__init__(x, y)
+
+class Rectangle(Object):
+    def __init__(self, x, y, width, height, color = pyray.WHITE):
+        self.x = x
+        self.y = y
         self.width = width
         self.height = height
         self.color = color
@@ -33,28 +32,17 @@ class Brick(Object):
             self.color
         )
 
-    def update(self):
-        pass
-
+class Brick(Rectangle):
+    def __init__(self, x, y, width, height, color):
+        super().__init__(x, y, width, height, color)
     def onCollision(self):
         pass
-class Platform(Object):
-    def __init__(self, x, y, width, height, color, speed):
-        super().__init__(x, y)
-        self.width = width
-        self.height = height
-        self.color = color
-        self.speed = speed
-        self.t=100
 
-    def draw(self):
-        pyray.draw_rectangle(
-            self.x,
-            self.y,
-            self.width,
-            self.height,
-            self.color
-        )
+class Platform(Rectangle):
+    def __init__(self, x, y, width, height, color, speed):
+        super().__init__(x, y, width, height, color)
+        self.speed = speed
+        self.t = 100
 
     def update(self):
         if pyray.is_key_down(pyray.KeyboardKey.KEY_D):
@@ -77,7 +65,6 @@ class Platform(Object):
                     if (self.t > 0):
                         self.x -=15
                         self.t-=20
-
     def onCollision(self):
         pass
 class Ball(Object):
@@ -86,7 +73,7 @@ class Ball(Object):
         self.radius = radius
         self.color = color
         self.vSpeed = vec.Vector2(speed, speed)
-        self.vDirection = vec.Vector2(0.5, 1)
+        self.vDirection = vec.Vector2(0.01, 1)
 
     def draw(self):
         pyray.draw_circle(self.x, self.y, self.radius, self.color)
@@ -114,7 +101,7 @@ class Ball(Object):
             self.vDirection = vec.Vector2(rnd, r*-1)
         pass
 class Label(Object):
-    def __init__(self, x, y, text, fontsize = 20, spacing = 1, color = pyray.WHITE, font = None, name = None):
+    def __init__(self, x = 0, y = 0, text = "", fontsize = 20, spacing = 1, color = pyray.WHITE, font = None, name = None):
         super().__init__(x, y)
         self.fontsize = fontsize
         self.text = text
@@ -133,3 +120,15 @@ class Label(Object):
     def update(self):
         pass
 
+class Button(Rectangle):
+    def __init__(self, x, y, color, label, onPressEvent, width = 0, height = 0):
+        super().__init__(x, y, width, height, color)
+        self.label = Label(x=x, y=y,
+                           text=label.text, fontsize=label.fontsize,
+                           spacing=label.spacing, color=label.color,
+                           font=label.font, name=label.name)
+        self.onPressEvent = onPressEvent
+
+    def draw(self):
+        super().draw()
+        self.label.draw()
