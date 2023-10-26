@@ -6,6 +6,7 @@ class AppManager:
     screenWidth = 500
     screenHeight = 700
     gameState = "Menu"
+    appManager = None
     def clearData(self):
         self.score = 0
         self.lives = 1
@@ -16,11 +17,14 @@ class AppManager:
         self.menuGUI = GUIs.MenuGUI()
         self.deathGUI = GUIs.DeathGUI()
         self.wipGUI = GUIs.WIPGUI()
+
+
     def __init__(self):
         # Конструктор где все обьекты инициализируются сразу. Если тестим функиональность какого нибудь класса
         # то создаем его здесь как поле класса и далле вызываем его методы в соответствующих функциях
 
         self.clearData()
+        AppManager.appManager = self
     def Initialization(self):
         pyray.init_window(AppManager.screenWidth, AppManager.screenHeight, 'Game')
         # Ходят слухи, что здесь грузят текстуры. Должен вызывать методы обьетков Initialization.
@@ -35,10 +39,10 @@ class AppManager:
             self.level.update()
             if self.lives == 0:
                 AppManager.gameState = "Death"
-                self.clearData()
-            self.gameGUI.score = self.score
-            self.gameGUI.lives = self.lives
-            self.gameGUI.update()
+            else:
+                self.gameGUI.score = self.score
+                self.gameGUI.lives = self.lives
+                self.gameGUI.update()
         elif AppManager.gameState is "Menu":
             self.menuGUI.update()
         elif AppManager.gameState is "Death":
@@ -87,15 +91,14 @@ class AppManager:
         if pyray.check_collision_circle_rec(pyray.Vector2(ball.x, ball.y), ball.radius,
                                             pyray.Rectangle(platform.x, platform.y, platform.width, platform.height)):
             flag=True
-            ball.onCollision(platform.y,flag)
+            ball.onCollision(platform.y, flag)
             platform.onCollision()
-
-
 
 
 def changeStateGame():
     AppManager.gameState = "Game"
 def restart():
     AppManager.gameState = "Menu"
+    AppManager.appManager.clearData()
 def changeStateWIP():
     AppManager.gameState = "WIP"
