@@ -156,6 +156,7 @@ class DeathGUI(GUI):
         for item in self.labels:
             if item.name == "Score":
                 item.text = str(Managers.AppManager.appManager.score)
+
 class WIPGUI(GUI):
     def __init__(self):
         super().__init__()
