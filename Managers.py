@@ -18,6 +18,8 @@ class AppManager:
         self.deathGUI = GUIs.DeathGUI()
         self.wipGUI = GUIs.WIPGUI()
 
+        self.start = True
+
 
     def __init__(self):
         # Конструктор где все обьекты инициализируются сразу. Если тестим функиональность какого нибудь класса
@@ -43,6 +45,7 @@ class AppManager:
                 self.gameGUI.score = self.score
                 self.gameGUI.lives = self.lives
                 self.gameGUI.update()
+                self.rebuild()
         elif AppManager.gameState is "Menu":
             self.menuGUI.update()
         elif AppManager.gameState is "Death":
@@ -82,7 +85,7 @@ class AppManager:
         for border in self.level.borders:
             if pyray.check_collision_circle_rec(pyray.Vector2(ball.x, ball.y), ball.radius,
                                                 pyray.Rectangle(border.x+1, border.y, border.width, border.height)):
-                if border.y == 80:
+                if border.y == 70:
                     ball.onCollision()
                 else:
                     self.lives -= 1
@@ -93,6 +96,10 @@ class AppManager:
             flag=True
             ball.onCollision(platform.y, flag)
             platform.onCollision()
+    def rebuild(self):
+        if self.score % 15 == 0 and self.score != 0 and self.start:
+            self.level = GameLevels.Level1()
+            self.start = False
 
 
 def changeStateGame():

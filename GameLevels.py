@@ -9,8 +9,8 @@ class GameLevel(GUIs.GUI):
         super().__init__()
         self.items.append(Objects.Platform(250, 500, 80, 20, pyray.WHITE, 5))
         self.items.append(Objects.Ball(250, 300, 10, pyray.WHITE, 1))
-        self.items.append(Objects.Rectangle(0, 80, 500, 1, pyray.WHITE))
-        self.items.append(Objects.Rectangle(0, 620, 500, 1, pyray.WHITE))
+        self.items.append(Objects.Rectangle(0, 70, 500, 20, pyray.WHITE))
+        self.items.append(Objects.Rectangle(0, 620, 500, 20, pyray.WHITE))
 
     def remove(self, item):
         self.items.remove(item)
@@ -45,7 +45,7 @@ class Level1(GameLevel):
         super().__init__()
         for i in range(5):
             for e in range(3):
-                self.items.append(Objects.Brick(100 * i+18, 60 * e + 100, 60, 15, color=pyray.BLUE))
+                self.items.append(Objects.Brick(100 * i + 18, 60 * e + 120, 60, 15, color=pyray.BLUE))
         pass
 
 
