@@ -93,13 +93,20 @@ class Ball(Object):
         self.y += int(self.vSpeed.y * self.vDirection.y)
         pass
 
-    def onCollision(self):
-        rnd = (random.random()+0.6)*1.6
-        r = (random.random()+0.4) * 1.6
-        if self.vDirection.y < 0:
-            self.vDirection = vec.Vector2(rnd, r)
+    def onCollision(self,y=0,flag=False):
+        rnd = (random.random()+0.7)*1.6
+        r = (random.random()+0.5) * 1.6
+        if(y<self.y and flag):
+            self.vDirection = vec.Vector2(rnd, -2)
+        elif (y>self.y and flag ):
+            if self.vDirection.x<0:
+                self.vDirection = vec.Vector2(rnd*-1, -2)
+            else:
+                self.vDirection = vec.Vector2(rnd, -2)
+        elif self.vDirection.y < 0:
+            self.vDirection = vec.Vector2(rnd , r)
         else:
-            self.vDirection = vec.Vector2(rnd, r*-1)
+            self.vDirection = vec.Vector2(rnd, r * -1)
 
         if not self.firstPunch:
             self.vSpeed = vec.Vector2(3, 3)

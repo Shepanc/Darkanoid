@@ -170,7 +170,7 @@ class WIPGUI(GUI):
                                   y=screenHeight // 3 + screenHeight // 9,
                                   color=pyray.BLACK,
                                   onPressEvent=None,
-                                  label=Objects.Label(text="Work in progress",
+                                  label=Objects.Label(text="Darkonoid project made by Andrei, Lesha, Kirill and Sledge",
                                                       fontsize=30))
         self.items.append(retryBtn)
         self.selectedBtn = retryBtn

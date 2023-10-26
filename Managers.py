@@ -81,7 +81,7 @@ class AppManager:
                 self.level.remove(brick)
         for border in self.level.borders:
             if pyray.check_collision_circle_rec(pyray.Vector2(ball.x, ball.y), ball.radius,
-                                                pyray.Rectangle(border.x, border.y, border.width, border.height)):
+                                                pyray.Rectangle(border.x+1, border.y, border.width, border.height)):
                 if border.y == 80:
                     ball.onCollision()
                 else:
@@ -90,9 +90,9 @@ class AppManager:
                 border.onCollision()
         if pyray.check_collision_circle_rec(pyray.Vector2(ball.x, ball.y), ball.radius,
                                             pyray.Rectangle(platform.x, platform.y, platform.width, platform.height)):
-            ball.onCollision()
+            flag=True
+            ball.onCollision(platform.y, flag)
             platform.onCollision()
-
 
 
 def changeStateGame():
