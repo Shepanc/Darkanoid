@@ -1,5 +1,4 @@
 import pyray
-
 import Managers
 import Objects
 
@@ -17,31 +16,40 @@ class GUI:
             item.update()
         pass
 
+    @property
+    def buttons(self):
+        return [item for item in self.items if type(item) is Objects.Button]
+
+    @property
+    def labels(self):
+        return [item for item in self.items if type(item) is Objects.Label]
+
     # Нужен для переключения выбора в менюшках и тд.
     def controlUpd(self):
+        buttons = self.buttons
         if pyray.is_key_pressed(pyray.KeyboardKey.KEY_ENTER):
             self.selectedBtn.onPressEvent()
 
         if pyray.is_key_pressed(pyray.KeyboardKey.KEY_DOWN):
-            for i in range(len(self.items)):
-                if self.selectedBtn == self.items[i]:
+            for i in range(len(buttons)):
+                if self.selectedBtn == buttons[i]:
                     if i == 0:
-                        self.selectedBtn = self.items[len(self.items)-1]
+                        self.selectedBtn = buttons[len(buttons)-1]
                         break
                     else:
-                        self.selectedBtn = self.items[i - 1]
+                        self.selectedBtn = buttons[i - 1]
                         break
         if pyray.is_key_pressed(pyray.KeyboardKey.KEY_UP):
-            for i in range(len(self.items)):
-                if self.selectedBtn == self.items[i]:
-                    if i == len(self.items) - 1:
-                        self.selectedBtn = self.items[0]
+            for i in range(len(buttons)):
+                if self.selectedBtn == buttons[i]:
+                    if i == len(buttons) - 1:
+                        self.selectedBtn = buttons[0]
                         break
                     else:
-                        self.selectedBtn = self.items[i + 1]
+                        self.selectedBtn = buttons[i + 1]
                         break
 
-        for item in self.items:
+        for item in buttons:
             if self.selectedBtn.label.text == item.label.text:
                 item.label.color = pyray.RED
             else:
@@ -116,6 +124,7 @@ class DeathGUI(GUI):
     def __init__(self):
         super().__init__()
         self.CreateUI()
+
     def CreateUI(self):
         screenWidth = Managers.AppManager.screenWidth
         screenHeight = Managers.AppManager.screenHeight
@@ -136,10 +145,17 @@ class DeathGUI(GUI):
                                  label=Objects.Label(text="Exit",
                                                      fontsize=30))
         self.items.append(exitBtn)
+
+        self.items.append(Objects.Label(screenWidth // 20, screenHeight // 8,
+                                        "Score: ", (screenWidth + screenHeight) // 30))
+        self.items.append(Objects.Label(screenWidth // 20 * 7, screenHeight // 8,
+                                        "0", (screenWidth + screenHeight) // 30, name="Score"))
     def update(self):
         super().update()
         self.controlUpd()
-
+        for item in self.labels:
+            if item.name == "Score":
+                item.text = str(Managers.AppManager.appManager.score)
 class WIPGUI(GUI):
     def __init__(self):
         super().__init__()
