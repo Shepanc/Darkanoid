@@ -166,12 +166,12 @@ class WIPGUI(GUI):
         screenWidth = Managers.AppManager.screenWidth
         screenHeight = Managers.AppManager.screenHeight
 
-        retryBtn = Objects.Button(x=screenWidth // 2 - screenWidth // 4,
+        retryBtn = Objects.Button(x=10,
                                   y=screenHeight // 3 + screenHeight // 9,
                                   color=pyray.BLACK,
                                   onPressEvent=None,
                                   label=Objects.Label(text="Darkonoid project made by Andrei, Lesha, Kirill and Sledge",
-                                                      fontsize=30))
+                                                      fontsize=20))
         self.items.append(retryBtn)
         self.selectedBtn = retryBtn
 

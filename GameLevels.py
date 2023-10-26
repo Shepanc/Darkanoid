@@ -7,7 +7,7 @@ import vec
 class GameLevel(GUIs.GUI):
     def __init__(self):
         super().__init__()
-        self.items.append(Objects.Platform(250, 500, 80, 5, pyray.WHITE, 5))
+        self.items.append(Objects.Platform(250, 500, 80, 20, pyray.WHITE, 5))
         self.items.append(Objects.Ball(250, 300, 10, pyray.WHITE, 1))
         self.items.append(Objects.Rectangle(0, 80, 500, 1, pyray.WHITE))
         self.items.append(Objects.Rectangle(0, 620, 500, 1, pyray.WHITE))

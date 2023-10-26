@@ -9,7 +9,7 @@ class AppManager:
     appManager = None
     def clearData(self):
         self.score = 0
-        self.lives = 1
+        self.lives = 3
 
         self.level = GameLevels.Level1()
 
